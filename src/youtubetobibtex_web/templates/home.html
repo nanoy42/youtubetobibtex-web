@@ -1,0 +1,115 @@
+{% load static %}
+<!--
+youtubetobibtex_web - Export bibtex from youtube videos online
+Copyright (C) 2020 Yoann Piétri
+
+youtubetobibtex_web is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+youtubetobibtex_web is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with youtubetobibtex_web. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Youtube To Bibtex</title>
+  <meta name="description" content="youtubetobibtex">
+  <meta name="author" content="Yoann Piétri">
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+</head>
+
+<body>
+  <div class="pure-g">
+    <div class="pure-u-1-5"></div>
+    <div class="pure-u-3-5">
+      <h2 id="title">Youtube To Bibtex</h2>
+      {% if messages %}
+      {% for message in messages %}
+      <div class="message {% if message.tags %}message-{{ message.tags }}{% endif %}">{{ message }} <span
+          class="message-close">&times;</span></div>
+      {% endfor %}
+      {% endif %}
+      <form method="POST" class="pure-g pure-form">
+        {% csrf_token %}
+        <div class="pure-u-md-2-3 pure-u-sm-1 pure-u-lg-2-3 pure-u-xl-2-3 pure-u-1">
+          {{form}}
+        </div>
+        <button type="submit"
+          class="pure-u-md-1-3 pure-u-sm-1 pure-u-lg-1-3 pure-u-xl-1-3 pure-u-1 pure-button pure-button-primary">Get
+          BibTex</button>
+      </form>
+      {% if bibtex %}
+      <br>
+      <div class="pure-form">
+        <textarea id="bibtex" class="pure-input-1" readonly="" contentEditable>{{bibtex}}</textarea>
+        <br><br>
+        <div class="tooltip">
+          <span class="tooltiptext" id="tooltip">Copy</span>
+          <button class="pure-button button-secondary" id="copy-button">Copy to
+            clipboard</button>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div id="footer-legals">
+    <div class="pure-g">
+      <div class="pure-u-1-12"></div>
+      <div class="pure-u-5-6">
+        <p>Yoann Piétri. Contact : contact@nanoy.fr. Host : VM at <a href="https://www.scaleway.com/en/">scaleway</a>.
+          No cookies are used. No personal data is saved. </p>
+      </div>
+      <div class="pure-u-1-12"></div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="pure-g">
+      <div class="pure-u-1-12"></div>
+      <div class="pure-u-5-6">
+        <div class="pure-menu pure-menu-horizontal">
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+              <a href="https://nanoy.fr" class="pure-menu-link" target="_blank">Made with ♥ by nanoy ♦ Using</a>
+            </li>
+            <li class="pure-menu-item">
+              <a href="https://purecss.io/" class="pure-menu-link" target="_blank">pure</a>
+            </li>
+            <li class="pure-menu-item">
+              <a href="https://www.djangoproject.com/" class="pure-menu-link" target="_blank">django</a>
+            </li>
+            <li class="pure-menu-item">
+              <a href="https://github.com/nanoy42/youtubetobibtex" target="_blank"
+                class="pure-menu-link">youtubetobibtex</a>
+            </li>
+          </ul>
+          <ul class="pure-menu-list footer-right">
+            <li class="pure-menu-item">
+              <a href="https://github.com/nanoy42/youtubetobibtex-web" class="pure-menu-link" target="_blank">GitHub</a>
+            </li>
+            <li class="pure-menu-item">
+              <a href="#" id="legals-button" class="pure-menu-link">Legals</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="pure-u-1-12"></div>
+    </div>
+  </div>
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
